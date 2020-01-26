@@ -28,6 +28,10 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private Set<Teacher> teachers = new HashSet<>();
 
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
     public Set<Student> getStudents() {
         return students;
     }

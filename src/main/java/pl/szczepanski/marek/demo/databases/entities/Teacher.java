@@ -21,6 +21,10 @@ public class Teacher {
     @ManyToMany
     private Set<Course> courses = new HashSet<>();
 
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
     public int getId() {
         return id;
     }
