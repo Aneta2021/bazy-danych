@@ -75,9 +75,16 @@ public class JDBCService {
                 System.out.println(myRs.getString("last_name")
                         + ", " + myRs.getString("first_name"));
             }
+
+            System.out.println("\n==== Ledal dep ====\n");
             ResultSet myRs1 = myStmt
                     .executeQuery("select * from employees " +
                             "where LOWER(department) = 'legal'");
+
+            while (myRs1.next()) {
+                System.out.println(myRs1.getString("last_name")
+                        + ", " + myRs1.getString("first_name"));
+            }
             return "OK";
         }
     }
@@ -153,7 +160,7 @@ public class JDBCService {
 
             int rowsAffected = myStmt.executeUpdate(
                     "delete from employees " +
-                            "where last_name='Doe' and first_name='John'");
+                            "where email='john.doe@luv2code.com'");
 
             System.out.println(rowsAffected + "rows affected.\n");
 
@@ -173,7 +180,6 @@ public class JDBCService {
             // Create a statement
             Statement myStmt1 = myConn.createStatement();
 
-            // QUERY FOR SALARY > 80000
             String departament = "HR";
             ResultSet myRs1 = myStmt1
                     .executeQuery(
