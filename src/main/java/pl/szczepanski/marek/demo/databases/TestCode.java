@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import pl.szczepanski.marek.demo.databases.entities.Course;
+import pl.szczepanski.marek.demo.databases.entities.Student;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
@@ -58,6 +59,23 @@ public class TestCode {
             query.setParameter("nameparam", "code%");
             final List<Course> courseList = query.list();
             courseList.forEach(courseItem -> System.out.println("course found: " + courseItem.getName()));
+
+            tx.commit();
+            tx = session.beginTransaction();
+
+            Course course5 = session.find(Course.class, 1);
+
+            Student student1 = new Student();
+            student1.setName("Marek");
+            student1.setAddress("dom");
+            student1.setCourse(course5);
+            session.persist(student1);
+
+            Student student2 = new Student();
+            student2.setName("Tomek");
+            session.persist(student2);
+            student2.setAddress("zamek");
+            student2.setCourse(course5);
 
             tx.commit();
         } catch (Exception ex) {
