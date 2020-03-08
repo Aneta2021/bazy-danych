@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.time.LocalDate;
@@ -24,6 +25,17 @@ public class Course {
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     private Set<Student> students = new HashSet<>();
+
+    @ManyToMany(mappedBy = "courses")
+    private Set<Teacher> teachers = new HashSet<>();
+
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
+    }
 
     public Set<Student> getStudents() {
         return students;
