@@ -22,7 +22,7 @@ public class Course {
 
     private LocalDate startDate;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     private Set<Student> students = new HashSet<>();
 
     public Set<Student> getStudents() {
