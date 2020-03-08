@@ -3,12 +3,14 @@ package pl.szczepanski.marek.demo.databases;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import pl.szczepanski.marek.demo.databases.entities.Course;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class TestCode {
@@ -52,6 +54,10 @@ public class TestCode {
             tx.commit();
             tx = session.beginTransaction();
 
+            Query<Course> query = session.createQuery("from Course where name like :nameparam", Course.class);
+            query.setParameter("nameparam", "code%");
+            final List<Course> courseList = query.list();
+            courseList.forEach(courseItem -> System.out.println("course found: " + courseItem.getName()));
 
             tx.commit();
         } catch (Exception ex) {
