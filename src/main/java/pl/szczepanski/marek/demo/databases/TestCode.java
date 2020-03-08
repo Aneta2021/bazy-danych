@@ -42,6 +42,18 @@ public class TestCode {
             session.persist(c);
 
             tx.commit();
+            tx = session.beginTransaction();
+
+            Course course1 = session.find(Course.class, 1);
+            System.out.println("\n course with id 1 found: " + course1.getName());
+            session.evict(course1);
+            course1.setName("course 1 new name");
+
+            tx.commit();
+            tx = session.beginTransaction();
+
+
+            tx.commit();
         } catch (Exception ex) {
             if (tx != null && !tx.getRollbackOnly()) {
                 tx.rollback();
