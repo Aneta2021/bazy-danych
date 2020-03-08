@@ -107,6 +107,13 @@ public class TestCode {
             session.persist(teacher2);
 
             tx.commit();
+            tx = session.beginTransaction();
+
+            Course course8 = session.find(Course.class, 1);
+            System.out.println("Teacher list: ");
+            course7.getTeachers().forEach(teacher -> System.out.println("teacher: " + teacher.getName()));
+
+            tx.commit();
         } catch (Exception ex) {
             if (tx != null && !tx.getRollbackOnly()) {
                 tx.rollback();
