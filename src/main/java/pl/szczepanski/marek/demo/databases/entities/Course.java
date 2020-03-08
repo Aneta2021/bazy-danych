@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,15 @@ public class Course {
     private LocalDate startDate;
 
     @OneToMany(mappedBy = "course")
-    private Set<Student> students;
+    private Set<Student> students = new HashSet<>();
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
 
     public int getId() {
         return id;

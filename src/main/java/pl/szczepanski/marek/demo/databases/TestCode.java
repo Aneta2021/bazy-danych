@@ -78,6 +78,11 @@ public class TestCode {
             student2.setCourse(course5);
 
             tx.commit();
+            tx = session.beginTransaction();
+
+
+
+            tx.commit();
         } catch (Exception ex) {
             if (tx != null && !tx.getRollbackOnly()) {
                 tx.rollback();
