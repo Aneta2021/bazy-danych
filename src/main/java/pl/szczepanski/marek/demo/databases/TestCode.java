@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import pl.szczepanski.marek.demo.databases.entities.Course;
 import pl.szczepanski.marek.demo.databases.entities.Student;
+import pl.szczepanski.marek.demo.databases.entities.Teacher;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
@@ -86,6 +87,24 @@ public class TestCode {
             Set<Student> course6Students = course6.getStudents();
             System.out.println("Number of students: " + course6Students.size());
             course6Students.forEach(studentItem -> System.out.println("name: " + studentItem.getName()));
+
+            tx.commit();
+            session.clear();
+            tx = session.beginTransaction();
+
+            Course course7 = session.find(Course.class, 1);
+
+            Teacher teacher1 = new Teacher();
+            teacher1.setName("Wojtek");
+            teacher1.setSubject("Java");
+            teacher1.getCourses().add(course7);
+            session.persist(teacher1);
+
+            Teacher teacher2 = new Teacher();
+            teacher2.setName("Franek");
+            teacher2.setSubject("Angular");
+            teacher2.getCourses().add(course7);
+            session.persist(teacher2);
 
             tx.commit();
         } catch (Exception ex) {
