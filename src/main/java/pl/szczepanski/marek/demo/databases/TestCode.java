@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class TestCode {
@@ -78,9 +79,13 @@ public class TestCode {
             student2.setCourse(course5);
 
             tx.commit();
+            session.clear();
             tx = session.beginTransaction();
 
-
+            Course course6 = session.find(Course.class, 1);
+            Set<Student> course6Students = course6.getStudents();
+            System.out.println("Number of students: " + course6Students.size());
+            course6Students.forEach(studentItem -> System.out.println("name: " + studentItem.getName()));
 
             tx.commit();
         } catch (Exception ex) {
