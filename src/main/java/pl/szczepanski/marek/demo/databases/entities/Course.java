@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 public class Course {
@@ -16,6 +19,9 @@ public class Course {
     private String name;
 
     private LocalDate startDate;
+
+    @OneToMany(mappedBy = "course")
+    private Set<Student> students;
 
     public int getId() {
         return id;
